@@ -6,5 +6,6 @@ import (
 )
 
 func ResistIndexRoutes(r *gin.RouterGroup) {
-	new(controller.IndexController).RegisterRoute(r)
+	//*************index**********************
+	r.GET("/", new(controller.IndexController).Index)
 }
