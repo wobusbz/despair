@@ -1,0 +1,11 @@
+[http]
+host = "127.0.0.1"
+port = 2019
+
+# 存储配置
+[db]
+mysql = "root:@tcp(127.0.0.1:3306)/wuhuarou?charset=utf8&parseTime=True&loc=Local"
+redis  = "redis://localhost:6379"
+
+[log]
+logDir = "/log/"
