@@ -1,9 +1,8 @@
 [http]
-host = "127.0.0.1"
-port = 2019
+host = "127.0.0.1:2020"
 
 # 存储配置
-[db]
+[dbs]
 mysql = "root:@tcp(127.0.0.1:3306)/wuhuarou?charset=utf8&parseTime=True&loc=Local"
 redis  = "redis://localhost:6379"
 

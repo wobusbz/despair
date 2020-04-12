@@ -1,38 +1,48 @@
 package conf
 
 import (
+	"despair/app"
 	"flag"
+	"fmt"
+	"github.com/BurntSushi/toml"
 	"sync"
 )
 
 var (
-	once   sync.Once
-	config = flag.String("-f", "common/conf", "conf default dir")
+	config = flag.String("-f", fmt.Sprintf("%s/conf/config.toml", app.App.RootDir), "conf default dir")
 )
 
-func Init() {
-	once.Do(func() {
-
-	})
+type TomlConfing struct {
+	Title string
+	Http  http
+	Log   log
+	Dbs   dbs
 }
 
-// mysql dbhttps://github.com/spf13/viper
+type http struct {
+	Host string `toml:"host"`
+}
+
+type log struct {
+	LogDir string `toml:"logDir"`
+}
+
+type dbs struct {
+	Mysql string `toml:"mysql"`
+	Redis string `redis:"redis"`
+}
+
 var (
-	Mysql_Host     = "127.0.0.1"
-	Mysql_Port     = 3306
-	Mysql_User     = "root"
-	Mysql_Pass     = ""
-	Mtsql_Database = ""
-	Mysql_Charset  = "utf8"
+	Conf *TomlConfing
+	once sync.Once
 )
 
-// log
-var (
-	Log_Path = ""
-)
-
-// app addrs
-var (
-	ADDRS = "127.0.0.1"
-	PORT  = "8080"
-)
+// 读取配置文件
+func InitConfig() {
+	once.Do(func() {
+		flag.Parse()
+		if _, err := toml.DecodeFile(*config, &Conf); err != nil {
+			return
+		}
+	})
+}
