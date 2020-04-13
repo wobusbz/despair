@@ -42,7 +42,7 @@ func (a *AuthToken) EncodeToken(userInter interface{}) (token string, err error)
 /********解码token**********/
 func (a *AuthToken) DecodeToken(token string) (*AuthToken, error) {
 
-	jwtToken, err := jwt.ParseWithClaims(token, a, func(token *jwt.Token) (interface{}, error) {
+	jwtToken, err := jwt.ParseWithClaims(token, &AuthToken{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(SIGNED_KEY), nil
 	})
 

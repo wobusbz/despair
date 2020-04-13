@@ -1,8 +1,6 @@
 package main
 
 import (
-	"despair/app/index/controller"
-	"despair/app/middleware"
 	"despair/app/routers"
 	"despair/common/logger"
 	"despair/db"
@@ -17,12 +15,9 @@ func init() {
 
 func main() {
 
-	r := gin.New()
+	r := gin.Default()
 	// 中间件
-	// 初始化基础模型，激活auth认证
-	// 全局初始化一个auth
-	baseController := controller.NewBaseController()
-	r.Use(middleware.AuthMiddleware(baseController.Auth))
+	r.Use()
 
 	// 注册前台路由
 	indexRouter := r.Group("")

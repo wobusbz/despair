@@ -18,12 +18,12 @@ func TestNewAuthToken(t *testing.T) {
 	if err != nil {
 		t.Errorf("create token failed error %s\n", err)
 	}
-
+	t.Log(token)
 	var (
 		curTime = time.Unix(time.Now().Unix(), 0)
 	)
 
-	if autoToken, err := authToken.DecodeToken(token); err == nil {
+	if autoToken, err := NewAuthToken().DecodeToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODc0MDA1MjgsImlhdCI6MTU4Njc5NTcyOCwiaXNzIjoid29idXNienMiLCJuYmYiOjE1ODY3OTU3Mjh9.c5HK3r6V98SY3RSe2JUuCBio3opUGii0MzpqKkI38tQ"); err == nil {
 		if user, ok := autoToken.userInter.(*User); !ok {
 			t.Errorf("NotBefore: %v  want = %v\n", user, users)
 		}
